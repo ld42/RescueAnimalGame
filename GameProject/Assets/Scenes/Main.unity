@@ -286,7 +286,6 @@ GameObject:
   - component: {fileID: 133300766}
   - component: {fileID: 133300765}
   - component: {fileID: 133300764}
-  - component: {fileID: 133300767}
   m_Layer: 5
   m_Name: NewCoinAnim
   m_TagString: Untagged
@@ -800,7 +799,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 133300767}
+      - m_Target: {fileID: 296676676}
         m_MethodName: Press
         m_Mode: 1
         m_Arguments:
@@ -858,7 +857,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4166dfda1eb179f409e1e2b9f792d710, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anim: {fileID: 0}
+  anim: {fileID: 133300764}
 --- !u!1 &407303551
 GameObject:
   m_ObjectHideFlags: 0
