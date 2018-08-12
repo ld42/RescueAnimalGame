@@ -2,25 +2,22 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class LocalizedText : MonoBehaviour
+public class TimingText : MonoBehaviour
 {
-
-    public string key;
 
     private void OnEnable()
     {
-        LocalizationManager.LanguageChanged += OnLanguageChanged;
-        OnLanguageChanged();
+        TimeManager.GameTimeUpdate += OnGameTimeUpdate;
     }
 
     private void OnDisable()
     {
-        LocalizationManager.LanguageChanged -= OnLanguageChanged;
+        TimeManager.GameTimeUpdate -= OnGameTimeUpdate;
     }
 
-    private void OnLanguageChanged()
+    private void OnGameTimeUpdate()
     {
-        string newText = LocalizationManager.instance.GetLocalizedValue(key);
+        string newText = TimeManager.instance.CurrentTime.ToString();
         if (GetComponent<Text>() != null)
         {
             Text text = GetComponent<Text>();
@@ -32,5 +29,4 @@ public class LocalizedText : MonoBehaviour
             text.text = newText;
         }
     }
-
 }
