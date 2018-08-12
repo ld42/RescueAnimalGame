@@ -2,6 +2,9 @@
 
 public class TimeManager : MonoBehaviour
 {
+
+    public static TimeManager instance;
+
     [Range(1f, 240f)]
     public float MonthLengthInMinutes = 10f;    // How long a month is in real world minutes
     public int DaysToTheMonth = 30;             // How many days there are in a month
@@ -9,32 +12,39 @@ public class TimeManager : MonoBehaviour
     public int MinutesToTheHour = 60;           // How many minutes there are in an hour
     public int SecondsToTheMinute = 60;         // How many seconds there are in a minute
 
+    public GameTime CurrentTime;
+
     private float monthLenght;                  // Month length in seconds
     private float dayLength;                    // Day length in seconds
     private float hourLength;                   // Hour length in seconds
     private float minuteLength;                 // Minute length in seconds
     private float secondLength;                 // Seconds length in seconds
 
-    private int currentSecond = 0;
-    private int currentMinute = 0;
-    private int currentHour = 0;
-    private int currentDay = 0;
-    private int currentMonth = 0;
-
-    private float totalTimer;
     private float levelTimer;
     private bool updateTimer;
+    private float speedFactor;
+
+    void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else if (instance != this)
+        {
+            Destroy(gameObject);
+        }
+
+        DontDestroyOnLoad(gameObject);
+    }
 
     private void Start()
     {
-        monthLenght = MonthLengthInMinutes * 60;    // Get month length in seconds
-        dayLength = monthLenght / DaysToTheMonth;
-        hourLength = dayLength / HoursToTheDay;
-        minuteLength = hourLength / MinutesToTheHour;
-        secondLength = minuteLength / SecondsToTheMinute;
-
+        CurrentTime = new GameTime();
+        speedFactor = 1f;
         levelTimer = .0f;
         updateTimer = true;
+        CalculateTimeLengths();
     }
 
     private void Update()
@@ -42,8 +52,9 @@ public class TimeManager : MonoBehaviour
         if (updateTimer)
         {
             levelTimer += Time.deltaTime;
-            totalTimer += Time.deltaTime;
+            CurrentTime.TotalSeconds += Time.deltaTime;
             CalculateTime();
+            GameTimeUpdateHasOccured();
         }
     }
 
@@ -52,8 +63,17 @@ public class TimeManager : MonoBehaviour
         updateTimer = false;
     }
 
-    public void ContinueGame()
+    public void ResumeGame()
     {
+        speedFactor = 1;
+        CalculateTimeLengths();
+        updateTimer = true;
+    }
+
+    public void ChangeSpeed(float factor)
+    {
+        speedFactor = factor;
+        CalculateTimeLengths();
         updateTimer = true;
     }
 
@@ -61,37 +81,46 @@ public class TimeManager : MonoBehaviour
     {
         while (levelTimer >= secondLength)
         {
-            currentSecond++;
+            CurrentTime.Seconds++;
             levelTimer -= secondLength;
         }
-        while (currentSecond >= SecondsToTheMinute)
+        while (CurrentTime.Seconds >= SecondsToTheMinute)
         {
-            currentMinute++;
-            currentSecond -= SecondsToTheMinute;
+            CurrentTime.Minutes++;
+            CurrentTime.Seconds -= SecondsToTheMinute;
         }
-        while (currentMinute >= MinutesToTheHour)
+        while (CurrentTime.Minutes >= MinutesToTheHour)
         {
-            currentHour++;
-            currentMinute -= MinutesToTheHour;
+            CurrentTime.Hours++;
+            CurrentTime.Minutes -= MinutesToTheHour;
         }
-        while (currentHour >= HoursToTheDay)
+        while (CurrentTime.Hours >= HoursToTheDay)
         {
-            currentDay++;
-            currentHour -= HoursToTheDay;
+            CurrentTime.Days++;
+            CurrentTime.Hours -= HoursToTheDay;
         }
-        while (currentDay >= DaysToTheMonth)
+        while (CurrentTime.Days >= DaysToTheMonth)
         {
-            currentMonth++;
-            currentDay -= DaysToTheMonth;
+            CurrentTime.Months++;
+            CurrentTime.Days -= DaysToTheMonth;
         }
     }
 
-    //public delegate void TimeManagerHandle(GameTime gameTime);
-    //public static event TimeManagerHandle GameTimeUpdate;
+    void CalculateTimeLengths()
+    {
+        monthLenght = MonthLengthInMinutes * 60 / speedFactor;    // Get month length in seconds
+        dayLength = monthLenght / DaysToTheMonth;
+        hourLength = dayLength / HoursToTheDay;
+        minuteLength = hourLength / MinutesToTheHour;
+        secondLength = minuteLength / SecondsToTheMinute;
+    }
 
-    //private static void GameTimeUpdateHasOccured(GameTime gameTime)
-    //{
-    //    if (GameTimeUpdate != null) GameTimeUpdate(gameTime);
-    //}
+    public delegate void TimeManagerHandle();
+    public static event TimeManagerHandle GameTimeUpdate;
+
+    private static void GameTimeUpdateHasOccured()
+    {
+        if (GameTimeUpdate != null) GameTimeUpdate();
+    }
 
 }
