@@ -43,23 +43,20 @@ public class EventManager : MonoBehaviour
             yield return new WaitForGameTimeSeconds(1200);
             events.Enqueue(new DisplayableGameEvent
             {
-                Type = EventType.MoreAnimals,
                 Name = "Hello my friend",
-                Message = "This shit seems to be working... Lorem y tal"
+                Message = "Someone has left a basket with 6 puppies inside at the front door, has rung the bell and left.\nYou'll have to take care of the puppies.",
+                EventAction = () => Debug.Log("Applied 1st action")
             });
             yield return new WaitForGameTimeSeconds(2450);
             events.Enqueue(new DisplayableGameEvent
             {
-                Type = EventType.MoreAnimals,
                 Name = "Hello again",
-                Message = "This shit seems to be working... Lorem y tal"
+                Message = "It seems that some kind stranger has donated 500 to your account."
             });
             yield return new WaitForGameTimeSeconds(6000);
-            events.Enqueue(new DisplayableGameEvent
+            events.Enqueue(new GameEvent
             {
-                Type = EventType.MoreAnimals,
-                Name = "Byebye",
-                Message = "This shit seems to be working... Lorem y tal"
+                EventAction = () => Debug.Log("Applied 3rd action")
             });
         }
     }

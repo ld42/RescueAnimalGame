@@ -19,6 +19,10 @@ public class EventConsumer : MonoBehaviour
                 eventDisplayer.SetTitle(gameEvent.Name);
                 eventDisplayer.SetMessage(gameEvent.Message);
             }
+            if (newEvent.EventAction != null)
+            {
+                newEvent.ApplyAction();
+            }
 
         }
 
