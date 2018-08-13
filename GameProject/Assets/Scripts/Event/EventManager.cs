@@ -45,18 +45,19 @@ public class EventManager : MonoBehaviour
             {
                 Name = "Hello my friend",
                 Message = "Someone has left a basket with 6 puppies inside at the front door, has rung the bell and left.\nYou'll have to take care of the puppies.",
-                EventAction = () => Debug.Log("Applied 1st action")
+                EventAction = () => InventoryManager.instance.CurrentAnimalQuantity += 6
             });
             yield return new WaitForGameTimeSeconds(2450);
             events.Enqueue(new DisplayableGameEvent
             {
                 Name = "Hello again",
-                Message = "It seems that some kind stranger has donated 500 to your account."
+                Message = "It seems that some kind stranger has donated 500 to your account.",
+                EventAction = () => InventoryManager.instance.CurrentCoinQuantity += 500
             });
             yield return new WaitForGameTimeSeconds(6000);
             events.Enqueue(new GameEvent
             {
-                EventAction = () => Debug.Log("Applied 3rd action")
+                EventAction = () => InventoryManager.instance.CurrentCoinQuantity -= 200
             });
         }
     }

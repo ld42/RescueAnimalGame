@@ -1,11 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class IncreaseAnimalsTestScript : MonoBehaviour {
+public class IncreaseAnimalsTestScript : MonoBehaviour
+{
 
     public void IncreaseAnimalQty()
     {
-        AnimalQtyScript.animalQty +=1; 
+        InventoryManager.instance.CurrentAnimalQuantity += 1;
     }
 }

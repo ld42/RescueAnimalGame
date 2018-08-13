@@ -1,19 +1,18 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class CoinQtyScript : MonoBehaviour {
-
-    public static int coinQuantity = 0;
+public class CoinQtyScript : MonoBehaviour
+{
     Text quantity;
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start()
+    {
         quantity = GetComponent<Text>();
-	}
-	
-	// Update is called once per frame
-	void Update () {
-        quantity.text = coinQuantity.ToString();
-	}
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        quantity.text = InventoryManager.instance.CurrentCoinQuantity.ToString();
+    }
 }

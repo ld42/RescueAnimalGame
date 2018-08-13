@@ -1,8 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class IncreaseCoinTestScript : MonoBehaviour {
+public class IncreaseCoinTestScript : MonoBehaviour
+{
 
     public Animator anim;
 
@@ -19,6 +18,6 @@ public class IncreaseCoinTestScript : MonoBehaviour {
 
     public void AddCoin()
     {
-        CoinQtyScript.coinQuantity += 1;
+        InventoryManager.instance.CurrentCoinQuantity += 1;
     }
 }
