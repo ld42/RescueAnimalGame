@@ -1561,6 +1561,7 @@ GameObject:
   - component: {fileID: 687345931}
   - component: {fileID: 687345930}
   - component: {fileID: 687345929}
+  - component: {fileID: 687345932}
   m_Layer: 5
   m_Name: BuffImage
   m_TagString: Untagged
@@ -1638,6 +1639,18 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 687345927}
   m_CullTransparentMesh: 0
+--- !u!114 &687345932
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 687345927}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 318db4e6c4696714182dd777321af97a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  anim: {fileID: 687345929}
 --- !u!1 &767634596
 GameObject:
   m_ObjectHideFlags: 0
@@ -3055,7 +3068,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 119, y: 97}
+  m_AnchoredPosition: {x: 119, y: 95.2}
   m_SizeDelta: {x: 100, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2135658885
@@ -3096,7 +3109,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2135658886}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 687345932}
+        m_MethodName: PressEventButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &2135658886
